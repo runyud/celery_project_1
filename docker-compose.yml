@@ -25,6 +25,7 @@ services:
     container_name: celery
     build:
       context: ./dcelery
+    command: celery --app=dcelery worker -l INFO 
     volumes:
       - ./dcelery:/usr/src/app/
     environment:
@@ -33,4 +34,15 @@ services:
       - ALLOWED_HOSTS=localhost,127.0.0.1
     depends_on:
       - redis
+      - django
 
+  celery2:
+    build:
+      context: ./celeryworker
+      dockerfile: Dockerfile
+    command: celery -A celerytask worker -l INFO 
+    volumes:
+      - ./celeryworker:/usr/src/app/
+    depends_on:
+      - redis
+      - django
