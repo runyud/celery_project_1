@@ -35,7 +35,7 @@ if os.path.exists(task_folder) and os.path.isdir(task_folder):
 
             for name in dir(module):
                 obj = getattr(module, name)
-                if callable(obj) and name.startswith("my_tasks"):
+                if callable(obj):
                     task_modules.append(f"{module_name}.{name}")
 
 app.autodiscover_tasks(task_modules)
