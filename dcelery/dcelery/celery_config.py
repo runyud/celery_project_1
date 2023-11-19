@@ -2,6 +2,18 @@ import os
 import time
 from celery import Celery
 from kombu import Exchange, Queue
+import sentry_sdk
+
+sentry_sdk.init(
+    dsn="https://cadf7ca41bcb0edcd176a075488f8924@o4506250757210112.ingest.sentry.io/4506250759962624",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    traces_sample_rate=1.0,
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    profiles_sample_rate=1.0,
+)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dcelery.settings")
 app = Celery("dcelery")
