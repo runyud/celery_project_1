@@ -50,8 +50,10 @@ if os.path.exists(task_folder) and os.path.isdir(task_folder):
                 obj = getattr(module, name)
                 if callable(obj):
                     task_modules.append(f"{module_name}.{name}")
+    app.autodiscover_tasks(task_modules)
 
-app.autodiscover_tasks(task_modules)
+app.autodiscover_tasks()
+
 
 # @app.task(queue="tasks")
 # def t1(a, b, message=None):
